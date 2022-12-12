@@ -15,8 +15,11 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 60,
+          ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Center(
               child: Text(
                 'WHAT KIND OF SERVICE ARE \n YOU GETTING TODAY?',

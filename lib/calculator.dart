@@ -64,9 +64,9 @@ class _CalculatorState extends State<Calculator> {
                                   fontSize: 20, fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              '\$ 250',
+                              '\$ ${calculateTotalPerson(_billAmount, _personCounter, _tipPercentage)}',
                               style: GoogleFonts.poppins(
-                                fontSize: 50.0,
+                                fontSize: 70.0,
                                 fontWeight: FontWeight.w800,
                                 color: const Color(
                                   0xff00ffb4,
@@ -243,11 +243,11 @@ class _CalculatorState extends State<Calculator> {
                                       ),
                                     ),
                                     Text(
-                                      '\$ ${calculateTotalTip(
+                                      '\$ ${(calculateTotalTip(
                                         _billAmount,
                                         _personCounter,
                                         _tipPercentage,
-                                      )}',
+                                      )).toStringAsFixed(2)}',
                                       style: GoogleFonts.poppins(
                                         fontSize: 30.0,
                                         fontWeight: FontWeight.w800,
@@ -275,7 +275,7 @@ class _CalculatorState extends State<Calculator> {
                                 ),
                               ),
                               Text(
-                                'Suggested tip is 15% which is \n a conventional rate for a lunch table service.',
+                                'Suggested tip is 15% which is a \n conventional rate for a lunch table service.',
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.white,
@@ -287,7 +287,7 @@ class _CalculatorState extends State<Calculator> {
 
                               Slider(
                                   min: 0,
-                                  max: 30,
+                                  max: 50,
                                   activeColor: const Color(
                                     0xff00ffb4,
                                   ),
@@ -316,15 +316,17 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  calculateTotalPerson(double totalTip, double billAmount, int splitBy) {
-    var totalPerPerson = (totalTip + billAmount) / splitBy;
+  calculateTotalPerson(double billAmount, int splitBy, int tipPercentage) {
+    var totalPerPerson =
+        (calculateTotalTip(billAmount, splitBy, tipPercentage)) / splitBy;
+    return totalPerPerson.toStringAsFixed(2);
   }
 
   calculateTotalTip(double billAmount, int splitBy, int tipPercentage) {
     double totalTip = 0.0;
-    if (billAmount < 0 || billAmount.toString().isEmpty || billAmount == null) {
+    if (billAmount < 0 || billAmount.toString().isEmpty) {
     } else {
-      (billAmount * tipPercentage) / 100;
+      totalTip = (billAmount * tipPercentage) / 100;
     }
     return totalTip;
   }
